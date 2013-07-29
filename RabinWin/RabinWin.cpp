@@ -26,7 +26,7 @@ using namespace std;
 
 int run_task(char* filename, int windowsize) {
 
-	int count;
+	size_t count;
 	FILE* rFile;
 
 	u_int64_t rabinf;
@@ -48,11 +48,11 @@ int run_task(char* filename, int windowsize) {
 			for (int i=0; i<count; i++) {
 				rabinf = myRabin.slide8(buf[i]);
 
-				if (isprint((int)buf[i])) {
+				/*if (isprint((int)buf[i])) {
 					printf("%c\t", buf[i]);
 				} else {
 					printf("0x%x\t", buf[i]);
-				}
+				}*/
 				printf("==>\t%lu\n", rabinf);
 			}
 
@@ -69,14 +69,24 @@ int main() {
 	char* filename;
 	int   windowsize;
 
-
-	printf("Lets See");
+	try{
+		   printf("Lets See");
 	// READ ARGUMENTS
-	filename = "ReadMe.txt";
+	filename = "Time2.mp3";
+	//filename = "ReadMe.txt";
+
+
 	windowsize = 48;
 	// READ THE FILE AND COMPUTE RABIN FINGERPRINT
 	ret = run_task(filename, windowsize);
 	printf("Lets See what is returned::%d",ret);
+
+	  }catch(...)
+	  {
+		  fwprintf(stdout,L"Something Bad happen");
+		  return 0;
+	  }
+	
 
 	return ret;
 

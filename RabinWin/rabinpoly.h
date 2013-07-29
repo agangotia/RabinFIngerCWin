@@ -42,6 +42,8 @@ u_int64_t polymmult(u_int64_t x, u_int64_t y, u_int64_t d);
 bool polyirreducible(u_int64_t f);
 u_int64_t polygen(u_int degree);
 
+
+
 class rabinpoly {
   int shift;
   u_int64_t T[256];		// Lookup table for mod
@@ -79,11 +81,19 @@ public:
   ~window ();
 
   u_int64_t slide8 (u_char m) {
-    if (++bufpos >= size)
+	  try{
+		   if (++bufpos >= size)
       bufpos = 0;
     u_char om = buf[bufpos];
     buf[bufpos] = m;
     return fingerprint = append8 (fingerprint ^ U[om], m);
+
+	  }catch(...)
+	  {
+		  fwprintf(stdout,L"Something Bad happen");
+		  return 0L;
+	  }
+   
   }
 
   void reset () { 
